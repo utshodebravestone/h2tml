@@ -21,11 +21,20 @@ html_ title content =
                 )
         )
 
-p_ :: String -> Structure
-p_ = Structure . el_ "p". escape_
-
 h1_ :: String -> Structure
 h1_ = Structure . el_ "h1" . escape_
+
+p_ :: String -> Structure
+p_ = Structure . el_ "p" . escape_
+
+code_ :: String -> Structure
+code_ = Structure . el_ "pre"
+
+ul_ :: [Structure] -> Structure
+ul_ = Structure . el_ "ul" . concat . map (el_ "li" . getStructureString)
+
+ol_ :: [Structure] -> Structure
+ol_ = Structure . el_ "ol" . concat . map (el_ "li" . getStructureString)
 
 
 -- Utils
