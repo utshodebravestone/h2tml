@@ -1,30 +1,34 @@
 main :: IO()
-main = putStrLn myHtml
+main = putStrLn (render myHtml)
 
-myHtml :: String
-myHtml = makeHtml "Learning Haskell" (h1_ "Hello, Haskell!" <> p_ "I'm trying to learn you.")
+myHtml :: Html
+myHtml = html_ "Learning Haskell" (append_ (h1_ "Trying hard to learn Haskell") (append_ (p_ "This is hard.") (p_ "But, I'll get through this.")))
 
-makeHtml :: String -> String -> String
-makeHtml title content = html_ (head_ (title_ title) <> body_ content)
+newtype Html = Html String
 
-html_ :: String -> String
-html_ = el "html"
+newtype Structure = Structure String
 
-head_ :: String -> String
-head_ = el "head"
+type Title = String
 
-title_ :: String -> String
-title_ = el "title"
+html_ :: Title -> Structure -> Html
+html_ title content = Html (el "html" (el "head" (el "title" title) <> el "body" (getStructureString content)))
 
-body_ :: String -> String
-body_ = el "body"
+p_ :: String -> Structure
+p_ = Structure . el "p"
 
-p_ :: String -> String
-p_ = el "p"
-
-h1_ :: String -> String
-h1_ = el "h1"
+h1_ :: String -> Structure
+h1_ = Structure . el "h1"
 
 el :: String -> String -> String
 el tag content =
     "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
+
+
+append_ :: Structure -> Structure -> Structure
+append_ (Structure a) (Structure b) = Structure (a <> b)
+
+getStructureString :: Structure -> String
+getStructureString (Structure str) = str
+
+render :: Html -> String
+render html = case html of Html str -> str
