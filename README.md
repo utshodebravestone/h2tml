@@ -1,10 +1,7 @@
-# HTML Generator
+# HTML Generator (HTML EDSL)
 
 Learning Haskell by building an HTML Generator.
 
 ## Run
 
-```
-../scripts/setup.sh
-../scripts/run.sh
-```
+First install Haskell toolchain and then run: `runghc ./Main.hs`
