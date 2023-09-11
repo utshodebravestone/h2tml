@@ -21,36 +21,50 @@ newtype Structure = Structure String
 type Title = String
 
 
--- Combinators
+-- EDSL HTML
 
 html_ :: Title -> Structure -> Html
 html_ title content =
     Html
-        (el
+        (el_
             "html"
-                (el "head" (el "title" title)
-                <> el "body" (getStructureString content)
+                (el_ "head" (el_ "title" (escape_ title))
+                <> el_ "body" (getStructureString content)
                 )
         )
 
 p_ :: String -> Structure
-p_ = Structure . el "p"
+p_ = Structure . el_ "p". escape_
 
 h1_ :: String -> Structure
-h1_ = Structure . el "h1"
+h1_ = Structure . el_ "h1" . escape_
 
-el :: String -> String -> String
-el tag content =
+
+-- Utils
+
+el_ :: String -> String -> String
+el_ tag content =
     "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
 
-
--- Helpers
+escape_ :: String -> String
+escape_ =
+    let
+        escapeChar c =
+            case c of
+                '<' -> "&lt;"
+                '>' -> "&gt;"
+                '&' -> "&amp;"
+                '"' -> "&qout;"
+                '\'' -> "&#39;"
+                _ -> [c]
+    in
+        concat . map escapeChar
 
 append_ :: Structure -> Structure -> Structure
 append_ (Structure a) (Structure b) = Structure (a <> b)
 
-getStructureString :: Structure -> String
-getStructureString (Structure str) = str
-
 render_ :: Html -> String
 render_ html = case html of Html str -> str
+
+getStructureString :: Structure -> String
+getStructureString (Structure str) = str
