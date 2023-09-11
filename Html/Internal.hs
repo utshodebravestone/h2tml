@@ -21,6 +21,9 @@ html_ title content =
                 )
         )
 
+body_ :: [Structure] -> Structure
+body_ = Structure . concat . map (getStructureString)
+
 h1_ :: String -> Structure
 h1_ = Structure . el_ "h1" . escape_
 
