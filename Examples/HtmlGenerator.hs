@@ -1,10 +1,10 @@
 import Html
 
 main :: IO()
-main = putStrLn (render myHtml)
+main = writeFile "html-generator.html" (render page)
 
-myHtml :: Document
-myHtml =
+page :: Document
+page =
     html
         "HTML Generator (EDSL in Haskell)"
         (body

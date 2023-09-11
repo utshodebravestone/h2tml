@@ -1,4 +1,4 @@
-# HTML Generator (HTML EDSL)
+# HTML Generator (EDSL)
 
 Learning Haskell by building an HTML Generator.
 
@@ -8,53 +8,40 @@ Following the book [Learn Haskell by building a blog generator](https://lhbg-boo
 
 **Features that differs from original implementation:**
 
-- Added `body_` function/combinator so you don't need nest `append_` call.
-
-    You had to do this according to the original implementation:
-
-    ```
-    html_
-        "Learning Haskell"
-        (
-            append_
-                (h1_ "Trying hard to learn Haskell")
-                (append_
-                    (p_ "Haskell is very elegant!")
-                    (append_
-                       (append_
-                            (h1_ "Example:")
-                                (append_
-                                    (p_ "Hello world:")
-                                    (code_ "main = putStrLn \"Hello World\"")
-                                )
-                        )
-                        (append_
-                            (h1_ "Learned so far:")
-                            (ol_ [p_ "Function", p_ "Function Composition", p_ "Types"])
-                        )
-                    )
-                )
-        )
-    ```
-
-    But, from now on, you can write this:
-
-    ```
-    html_
-        "Learning Haskell"
-        (body_
-            [
-                h1_ "Trying hard to learn Haskell",
-                p_ "Haskell is very elegant!",
-                h1_ "Learned so far:",
-                ol_ [p_ "Function", p_ "Function Composition", p_ "Types"],
-                h1_ "Example:",
-                p_ "Hello world:",
-                code_ "main = putStrLn \"Hello World\""
-            ]
-        )
-    ```
+- Added function/combinator (`concatElement`) for concating element.
+- Added `body` function/combinator so you don't need nest `appendElement` call.
 
 ## Run
 
-If you don't have Haskell, [Setup Haskell](https://www.haskell.org/downloads/) first  and then run the command: `runghc ./Main.hs`
+If you don't have Haskell, [Setup Haskell](https://www.haskell.org/downloads/) first  and then run the command: `runghc [ANY_EXAMPLE_FILE]`
+
+## Examples
+
+Here's a bit test of the it:
+
+```Table that generate multiplication table of one's to tenth's.
+import Html
+
+main :: IO ()
+main = putStrLn page
+
+page :: String
+page =
+    render
+        (html
+            "Multiplication Table"
+            (body [
+                h1 "Multiplication Table",
+                h2 "Generated via Html Generator written in Haskell by Utsho de Bravestone",
+                tableOf 10
+            ])
+        )
+
+tableOf :: Integer -> Element
+tableOf n = concatElements (map table [1..n])
+
+table :: Integer -> Element
+table i = addElements (h3 ("Multiplication table of " ++ show i)) (ul (map p [show i ++ " times " ++ show x ++ " is " ++ show (x * i) | x <- [1..10]]))
+```
+
+More examples be found [here](./Examples/).
