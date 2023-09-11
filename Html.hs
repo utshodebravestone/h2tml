@@ -12,7 +12,8 @@ module Html
         code,
         ul,
         ol,
-        append,
+        addElements,
+        concatElements,
         render,
     )
     where

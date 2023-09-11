@@ -66,8 +66,11 @@ escape =
     in
         concat . map escapeChar
 
-append :: Element -> Element -> Element
-append (Element a) (Element b) = Element (a <> b)
+addElements :: Element -> Element -> Element
+addElements (Element a) (Element b) = Element (a <> b)
+
+concatElements :: [Element] -> Element
+concatElements elements = Element (concat (map getElementString elements))
 
 render :: Document -> String
 render doc = case doc of Document str -> str
