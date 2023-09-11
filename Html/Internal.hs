@@ -1,53 +1,59 @@
 module Html.Internal where
 
--- Types
+-- * Types
 
-newtype Html = Html String
+newtype Document = Document String
 
-newtype Structure = Structure String
+newtype Element = Element String
 
 type Title = String
 
 
--- EDSL HTML
+-- * Combinators
 
-html_ :: Title -> Structure -> Html
-html_ title content =
-    Html
-        (el_
+html :: Title -> Element -> Document
+html title content =
+    Document
+        (el
             "html"
-                (el_ "head" (el_ "title" (escape_ title))
-                <> el_ "body" (getStructureString content)
+                (el "head" (el "title" (escape title))
+                <> el "body" (getElementString content)
                 )
         )
 
-body_ :: [Structure] -> Structure
-body_ = Structure . concat . map (getStructureString)
+body :: [Element] -> Element
+body = Element . concat . map (getElementString)
 
-h1_ :: String -> Structure
-h1_ = Structure . el_ "h1" . escape_
+h1 :: String -> Element
+h1 = Element . el "h1" . escape
 
-p_ :: String -> Structure
-p_ = Structure . el_ "p" . escape_
+h2 :: String -> Element
+h2 = Element . el "h2" . escape
 
-code_ :: String -> Structure
-code_ = Structure . el_ "pre"
+h3 :: String -> Element
+h3 = Element . el "h2" . escape
 
-ul_ :: [Structure] -> Structure
-ul_ = Structure . el_ "ul" . concat . map (el_ "li" . getStructureString)
+p :: String -> Element
+p = Element . el "p" . escape
 
-ol_ :: [Structure] -> Structure
-ol_ = Structure . el_ "ol" . concat . map (el_ "li" . getStructureString)
+code :: String -> Element
+code = Element . el "pre"
+
+ul :: [Element] -> Element
+ul = Element . el "ul" . concat . map (el "li" . getElementString)
+
+ol :: [Element] -> Element
+ol = Element . el "ol" . concat . map (el "li" . getElementString)
 
 
--- Utils
+-- * Utils
 
-el_ :: String -> String -> String
-el_ tag content =
+el :: String -> String -> String
+el tag content =
     "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
 
-escape_ :: String -> String
-escape_ =
+escape :: String -> String
+escape =
     let
         escapeChar c =
             case c of
@@ -60,11 +66,11 @@ escape_ =
     in
         concat . map escapeChar
 
-append_ :: Structure -> Structure -> Structure
-append_ (Structure a) (Structure b) = Structure (a <> b)
+append :: Element -> Element -> Element
+append (Element a) (Element b) = Element (a <> b)
 
-render_ :: Html -> String
-render_ html = case html of Html str -> str
+render :: Document -> String
+render doc = case doc of Document str -> str
 
-getStructureString :: Structure -> String
-getStructureString (Structure str) = str
+getElementString :: Element -> String
+getElementString (Element str) = str

@@ -1,17 +1,19 @@
 module Html
     (
-        Html,
-        Structure,
+        Document,
+        Element,
         Title,
-        html_,
-        body_,
-        h1_,
-        p_,
-        code_,
-        ul_,
-        ol_,
-        append_,
-        render_,
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        code,
+        ul,
+        ol,
+        append,
+        render,
     )
     where
 

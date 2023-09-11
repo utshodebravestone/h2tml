@@ -1,17 +1,20 @@
 import Html
 
 main :: IO()
-main = putStrLn (render_ myHtml)
+main = putStrLn (render myHtml)
 
-myHtml :: Html
+myHtml :: Document
 myHtml =
-    html_
-        "Learning Haskell"
-        (body_
+    html
+        "HTML Generator (EDSL in Haskell)"
+        (body
             [
-                h1_ "Learning Haskell",
-                p_ "Learning Haskell by building an HTML Generator.",
-                h1_ "Here's what I've learned so far:",
-                ol_ [p_ "Function", p_ "Function Composition", p_ "Types", p_ "Modules"]
+                h1 "HTML Generator (EDSL in Haskell)",
+                p "Learning Haskell by building an HTML Generator.",
+                p "Following the book [Learn Haskell by building a blog generator](https://lhbg-book.link/).",
+
+                h2 "Run",
+                p "If you don't have Haskell, [Setup Haskell](https://www.haskell.org/downloads/) first  and then run the command: ",
+                code "runghc ./Main.hs"
             ]
         )
