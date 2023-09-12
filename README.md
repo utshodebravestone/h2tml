@@ -1,15 +1,6 @@
 # HTML Generator (EDSL)
 
-Learning Haskell by building an HTML Generator.
-
-Following the book [Learn Haskell by building a blog generator](https://lhbg-book.link/).
-
-## Deviations
-
-**Features that differs from original implementation:**
-
-- Added function/combinator (`concatElement`) for concating element.
-- Added `body` function/combinator so you don't need nest `appendElement` call.
+Embedded Html Language in Haskell inspired from book [Learn Haskell by building a blog generator](https://lhbg-book.link/).
 
 ## Run
 
@@ -17,31 +8,33 @@ If you don't have Haskell, [Setup Haskell](https://www.haskell.org/downloads/) f
 
 ## Examples
 
-Here's a bit test of the it:
+Here's what it looks like:
 
-```Table that generate multiplication table of one's to tenth's.
+```Table that generates multiplication table of one's to tenth's.
 import Html
 
 main :: IO ()
-main = putStrLn page
+main = writeFile "multiplication-tables.html" (render page)
 
-page :: String
+page :: Document
 page =
-    render
-        (html
-            "Multiplication Table"
-            (body [
-                h1 "Multiplication Table",
-                h2 "Generated via Html Generator written in Haskell by Utsho de Bravestone",
-                tableOf 10
-            ])
-        )
-
-tableOf :: Integer -> Element
-tableOf n = concatElements (map table [1..n])
+    html
+        "Multiplication Table"
+        (body [
+            h1 "Multiplication Table",
+            h2 "Generated via Html Generator written in Haskell by Utsho de Bravestone",
+            table 10
+        ])
 
 table :: Integer -> Element
-table i = addElements (h3 ("Multiplication table of " ++ show i)) (ul (map p [show i ++ " times " ++ show x ++ " is " ++ show (x * i) | x <- [1..10]]))
+table n = concatElements (map tableOf [1..n])
+
+tableOf :: Integer -> Element
+tableOf i =
+    concatElements [
+        (h3 ("Multiplication table of " ++ show i)),
+        (ul (map p [show i ++ " times " ++ show x ++ " is " ++ show (x * i) | x <- [1..10]]))
+    ]
 ```
 
-More examples be found [here](./Examples/).
+More examples can be found [here](./Examples/).

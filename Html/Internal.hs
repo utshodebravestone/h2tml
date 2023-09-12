@@ -66,9 +66,6 @@ escape =
     in
         concat . map escapeChar
 
-addElements :: Element -> Element -> Element
-addElements (Element a) (Element b) = Element (a <> b)
-
 concatElements :: [Element] -> Element
 concatElements elements = Element (concat (map getElementString elements))
 

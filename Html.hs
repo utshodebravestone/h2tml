@@ -12,7 +12,6 @@ module Html
         code,
         ul,
         ol,
-        addElements,
         concatElements,
         render,
     )
