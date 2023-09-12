@@ -1,16 +1,3 @@
-# HTML Generator (EDSL)
-
-Embedded Html Language in Haskell inspired from book [Learn Haskell by building a blog generator](https://lhbg-book.link/).
-
-## Run
-
-If you don't have Haskell, [Setup Haskell](https://www.haskell.org/downloads/) first  and then run the command: `runghc [ANY_EXAMPLE_FILE]`
-
-## Examples
-
-Here's what it looks like:
-
-```haskell
 import Html.Utils
 import Html.Core
 
@@ -25,6 +12,3 @@ main = writeFile "html-generator.html" (
         ]
         )
     )
-```
-
-More examples can be found [here](./Examples/).
