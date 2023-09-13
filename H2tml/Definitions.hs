@@ -17,6 +17,8 @@ data ElementKind =
     Head |
     Title |
     Body |
+    Ul |
+    Div |
     H1 |
     H2 |
     H3 |

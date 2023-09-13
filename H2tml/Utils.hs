@@ -1,8 +1,6 @@
 -- * Contains some utility functions
 
-module H2tml.Utils (
-    boilerplate_
-) where
+module H2tml.Utils where
 
 import H2tml.Core
 import H2tml.Definitions

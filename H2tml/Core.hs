@@ -1,34 +1,6 @@
 -- * Contains core functions
 
-module H2tml.Core (
-    -- * Elements
-    document_,
-    html_,
-    head_,
-    title_,
-    body_,
-    h1_,
-    h2_,
-    h3_,
-    h4_,
-    h5_,
-    h6_,
-    p_,
-    small_,
-    b_,
-    i_,
-    a_,
-
-    -- * Attributes
-    href_,
-
-    -- * Helpers
-    children_,
-    attribute_,
-
-    -- * Renderer
-    render,
-) where
+module H2tml.Core where
 
 import H2tml.Definitions
 
@@ -65,6 +37,20 @@ renderElement currentElement =
             "<body>"
             <> (concat (map renderElement (children currentElement))) <>
             "</body>"
+
+        Ul ->
+            "<ul>"
+            <> (
+                concat
+                (map (\child -> "<li>" <> (renderElement child) <> "</li>")
+                (children currentElement))
+            ) <>
+            "</ul>"
+
+        Div ->
+            "<div>"
+            <> (concat (map renderElement (children currentElement))) <>
+            "</div>"
 
         H1 ->
             "<h1>"
@@ -184,6 +170,12 @@ title_ textContent = createElement Title textContent [] []
 
 body_ :: [Element] -> Element
 body_ childrenElements = createElement Body "" [] childrenElements
+
+ul_ :: [Element] -> Element
+ul_ children = createElement Ul "" [] children
+
+div_ :: [Element] -> Element
+div_ children = createElement Div "" [] children
 
 h1_ :: String -> Element
 h1_ textContent = createElement H1 textContent [] []

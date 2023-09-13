@@ -5,6 +5,8 @@ module H2tml.Prelude (
     head_,
     title_,
     body_,
+    ul_,
+    div_,
     h1_,
     h2_,
     h3_,

@@ -1,4 +1,6 @@
-import H2tml.Prelude
+import H2tml.Definitions
+import H2tml.Core
+import H2tml.Utils
 
 main :: IO ()
 main = writeFile "multiplication-tables.html" (
@@ -8,7 +10,7 @@ main = writeFile "multiplication-tables.html" (
             [
                  h1_ "Multiplication Table",
                 h2_ "Generated via H2tml ",
-                -- table 10,
+                table 10,
                 (children_
                 (p_ "See the source code ")
                 [(a_ "here" [attribute_ href_ "https://github.com/utshodebravestone/h2tml"])])
@@ -16,12 +18,12 @@ main = writeFile "multiplication-tables.html" (
         )
     )
 
--- table :: Integer -> Element
--- table n = concatElements (map tableOf [1..n])
+table :: Integer -> Element
+table n = div_ (map tableOf [1..n])
 
--- tableOf :: Integer -> Element
--- tableOf i =
---     concatElements [
---         (h3 ("Multiplication table of " ++ show i)),
---         (ul (map p [show i ++ " times " ++ show x ++ " is " ++ show (x * i) | x <- [1..10]]))
---     ]
+tableOf :: Integer -> Element
+tableOf i =
+    div_ [
+        (h3_ ("Multiplication table of " ++ show i)),
+        (ul_ (map p_ [show i ++ " times " ++ show x ++ " is " ++ show (x * i) | x <- [1..10]]))
+    ]
