@@ -1,5 +1,4 @@
-import H2tml.Utils
-import H2tml.Core
+import H2tml.Prelude
 
 main :: IO()
 main = writeFile "h2tml.html" (
@@ -12,7 +11,7 @@ main = writeFile "h2tml.html" (
                     [
                         (a_
                             "Learn Haskell by building a blog generator"
-                            [attribute_ "href" "https://lhbg-book.link/"]
+                            [attribute_ href_ "https://lhbg-book.link/"]
                         )
                     ]
             ]

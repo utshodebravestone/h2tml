@@ -31,6 +31,9 @@ data ElementKind =
 
 data Attribute =
     Attribute {
-        key :: String,
+        key :: AttributeKind,
         value :: String
     }
+
+data AttributeKind =
+    Href

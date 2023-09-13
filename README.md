@@ -1,14 +1,13 @@
 # H2tml
 
-Embedded HTML Language in Haskell inspired from book [Learn Haskell by building a blog generator](https://lhbg-book.link/).
+HTML Embedded in Haskell.
 
 ## Examples
 
 Here's what it looks like:
 
 ```haskell
-import H2tml.Utils
-import H2tml.Core
+import H2tml.Prelude
 
 main :: IO()
 main = writeFile "h2tml.html" (
@@ -21,7 +20,7 @@ main = writeFile "h2tml.html" (
                     [
                         (a_
                             "Learn Haskell by building a blog generator"
-                            [attribute_ "href" "https://lhbg-book.link/"]
+                            [attribute_ href_ "https://lhbg-book.link/"]
                         )
                     ]
             ]
@@ -34,6 +33,10 @@ More examples can be found [here](./Examples/).
 ## Why
 
 To write type safe and declarative HTML.
+
+## Inspiration
+
+[Learn Haskell by building a blog generator](https://lhbg-book.link/).
 
 ## Run
 

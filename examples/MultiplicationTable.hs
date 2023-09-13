@@ -1,5 +1,4 @@
-import H2tml.Utils
-import H2tml.Core
+import H2tml.Prelude
 
 main :: IO ()
 main = writeFile "multiplication-tables.html" (
@@ -12,7 +11,7 @@ main = writeFile "multiplication-tables.html" (
                 -- table 10,
                 (children_
                 (p_ "See the source code ")
-                [(a_ "here" [attribute_ "href" "https://github.com/utshodebravestone/h2tml"])])
+                [(a_ "here" [attribute_ href_ "https://github.com/utshodebravestone/h2tml"])])
             ]
         )
     )

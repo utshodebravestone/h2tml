@@ -1,5 +1,4 @@
-import H2tml.Utils
-import H2tml.Core
+import H2tml.Prelude
 
 main :: IO ()
 main =
@@ -18,7 +17,8 @@ main =
                 small_ "Hello there, this is a small.",
                 b_ "Hello there, this is a b.",
                 i_ "Hello there, this is an i.",
-                a_ "Hello there, this is an a" [attribute_ "href" "where?"]
+                a_ "Hello there, this is an a" [attribute_ href_ "/404"],
+                children_ (p_ "created by ") [i_ "utsho de bravestone"]
             ]
         )
     )

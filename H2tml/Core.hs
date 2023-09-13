@@ -19,6 +19,9 @@ module H2tml.Core (
     i_,
     a_,
 
+    -- * Attributes
+    href_,
+
     -- * Helpers
     children_,
     attribute_,
@@ -133,7 +136,18 @@ renderAttributes :: [Attribute] -> String
 renderAttributes = concat . map renderAttribute
 
 renderAttribute :: Attribute -> String
-renderAttribute = (\attribute -> key attribute <> "=" <> "'" <> value attribute <> "'")
+renderAttribute =
+    (
+        \attribute ->
+            renderAttributeKind (key attribute)
+            <> "=" <>
+            "'" <> value attribute <> "'"
+    )
+
+renderAttributeKind ::  AttributeKind -> String
+renderAttributeKind attributeKind =
+    case attributeKind of
+        Href -> "href"
 
 -- * Public Helper Functions
 
@@ -204,7 +218,12 @@ i_ textContent = createElement I textContent [] []
 a_ :: String -> [Attribute] -> Element
 a_ textContent attributes = createElement A textContent attributes []
 
+-- * Attributes Construction Functions
+
+href_ :: AttributeKind
+href_ = Href
+
 -- * Attribute Construction Functions
 
-attribute_ :: String -> String -> Attribute
+attribute_ :: AttributeKind -> String -> Attribute
 attribute_ = Attribute
