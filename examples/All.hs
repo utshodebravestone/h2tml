@@ -1,5 +1,5 @@
-import Html.Utils
-import Html.Core
+import H2tml.Utils
+import H2tml.Core
 
 main :: IO ()
 main =

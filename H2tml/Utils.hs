@@ -1,11 +1,11 @@
 -- * Contains some utility functions
 
-module Html.Utils (
+module H2tml.Utils (
     boilerplate_
 ) where
 
-import Html.Core
-import Html.Definitions
+import H2tml.Core
+import H2tml.Definitions
 
 type Title = String
 type Body = [Element]

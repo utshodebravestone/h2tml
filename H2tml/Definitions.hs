@@ -1,6 +1,6 @@
 -- * Contains type definitions
 
-module Html.Definitions where
+module H2tml.Definitions where
 
 newtype Document = Document [Element]
 

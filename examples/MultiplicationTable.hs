@@ -1,5 +1,5 @@
-import Html.Utils
-import Html.Core
+import H2tml.Utils
+import H2tml.Core
 
 main :: IO ()
 main = writeFile "multiplication-tables.html" (
@@ -8,10 +8,10 @@ main = writeFile "multiplication-tables.html" (
             "Multiplication Table"
             [
                  h1_ "Multiplication Table",
-                h2_ "Generated via Html Generator written in Haskell by Utsho de Bravestone",
+                h2_ "Generated via H2tml ",
                 -- table 10,
-                small_ "Made via: ",
-                a_ "H2TML" [attribute_ "href" "https://github.com/utshodebravestone/h2tml"]
+                p_ "See the source code ",
+                a_ "here" [attribute_ "href" "https://github.com/utshodebravestone/h2tml"]
             ]
         )
     )

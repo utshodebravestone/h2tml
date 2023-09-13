@@ -1,6 +1,6 @@
 -- * Contains core functions
 
-module Html.Core (
+module H2tml.Core (
     -- * Elements
     document_,
     html_,
@@ -26,7 +26,7 @@ module Html.Core (
     render,
 ) where
 
-import Html.Definitions
+import H2tml.Definitions
 
 -- * Public Render Methods
 
