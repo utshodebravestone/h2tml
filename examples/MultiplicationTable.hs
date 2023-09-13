@@ -10,8 +10,9 @@ main = writeFile "multiplication-tables.html" (
                  h1_ "Multiplication Table",
                 h2_ "Generated via H2tml ",
                 -- table 10,
-                p_ "See the source code ",
-                a_ "here" [attribute_ "href" "https://github.com/utshodebravestone/h2tml"]
+                (children_
+                (p_ "See the source code ")
+                [(a_ "here" [attribute_ "href" "https://github.com/utshodebravestone/h2tml"])])
             ]
         )
     )

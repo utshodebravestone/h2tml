@@ -20,6 +20,7 @@ module H2tml.Core (
     a_,
 
     -- * Helpers
+    children_,
     attribute_,
 
     -- * Renderer
@@ -28,7 +29,7 @@ module H2tml.Core (
 
 import H2tml.Definitions
 
--- * Public Render Methods
+-- * Public Render Functions
 
 render :: Document -> String
 render document =
@@ -36,7 +37,7 @@ render document =
         Document elements ->
             "<!DOCTYPE html>" <> (renderElements elements)
 
--- * Private Render Methods
+-- * Private Render Functions
 
 renderElements :: [Element] -> String
 renderElements = concat . (map renderElement)
@@ -63,47 +64,84 @@ renderElement currentElement =
             "</body>"
 
         H1 ->
-            "<h1>" <> text currentElement <>  "</h1>"
+            "<h1>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</h1>"
 
         H2 ->
-            "<h2>" <> text currentElement <>  "</h2>"
+            "<h2>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</h2>"
 
         H3 ->
-            "<h3>" <> text currentElement <>  "</h3>"
+            "<h3>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</h3>"
 
         H4 ->
-            "<h4>" <> text currentElement <>  "</h4>"
+            "<h4>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</h4>"
 
         H5 ->
-            "<h5>" <> text currentElement <>  "</h5>"
+            "<h5>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</h5>"
 
         H6 ->
-            "<h6>" <> text currentElement <>  "</h6>"
+            "<h6>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</h6>"
 
         P ->
-            "<p>" <> text currentElement <>  "</p>"
+            "<p>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</p>"
 
         Small ->
-            "<small>" <> text currentElement <>  "</small>"
+            "<small>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</small>"
 
         B ->
-            "<b>" <> text currentElement <>  "</b>"
+            "<b>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</b>"
 
         I ->
-            "<i>" <> text currentElement <>  "</i>"
+            "<i>"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</i>"
 
         A ->
-            "<a " <>renderAttributes (attributes currentElement) <> ">"
+            "<a " <> renderAttributes (attributes currentElement) <> ">"
             <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
             "</a>"
 
 renderAttributes :: [Attribute] -> String
 renderAttributes = concat . map renderAttribute
 
 renderAttribute :: Attribute -> String
-renderAttribute = (\attribute -> key attribute <> "=" <> value attribute)
+renderAttribute = (\attribute -> key attribute <> "=" <> "'" <> value attribute <> "'")
 
--- * Private Helper Methods
+-- * Public Helper Functions
+
+children_ :: Element -> [Element] -> Element
+children_ parent children =
+    createElement (kind parent) (text parent) (attributes parent) (children)
+
+-- * Private Helper Functions
 
 createElement :: ElementKind -> String -> [Attribute] -> [Element] -> Element
 createElement kind text attributes children =
