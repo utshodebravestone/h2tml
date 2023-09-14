@@ -1,4 +1,4 @@
--- * Contains core functions
+-- * Contains Core Functions
 
 module H2tml.Core where
 
@@ -51,6 +51,12 @@ renderElement currentElement =
             "<div>"
             <> (concat (map renderElement (children currentElement))) <>
             "</div>"
+
+        Img ->
+            "<img " <> renderAttributes (attributes currentElement) <> ">"
+            <> text currentElement <>
+            (concat (map renderElement (children currentElement))) <>
+            "</img>"
 
         H1 ->
             "<h1>"
@@ -134,6 +140,7 @@ renderAttributeKind ::  AttributeKind -> String
 renderAttributeKind attributeKind =
     case attributeKind of
         Href -> "href"
+        Src -> "src"
 
 -- * Public Helper Functions
 
@@ -177,6 +184,9 @@ ul_ children = createElement Ul "" [] children
 div_ :: [Element] -> Element
 div_ children = createElement Div "" [] children
 
+img_ :: [Attribute] -> Element
+img_ attributes = createElement A "" attributes []
+
 h1_ :: String -> Element
 h1_ textContent = createElement H1 textContent [] []
 
@@ -214,6 +224,9 @@ a_ textContent attributes = createElement A textContent attributes []
 
 href_ :: AttributeKind
 href_ = Href
+
+src_ :: AttributeKind
+src_ = Src
 
 -- * Attribute Construction Functions
 

@@ -1,4 +1,4 @@
--- * Contains type definitions
+-- * Contains Type Definitions
 
 module H2tml.Definitions where
 
@@ -19,6 +19,7 @@ data ElementKind =
     Body |
     Ul |
     Div |
+    Img |
     H1 |
     H2 |
     H3 |
@@ -38,4 +39,5 @@ data Attribute =
     }
 
 data AttributeKind =
-    Href
+    Href |
+    Src

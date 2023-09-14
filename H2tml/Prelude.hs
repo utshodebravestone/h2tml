@@ -1,3 +1,5 @@
+-- * All In One
+
 module H2tml.Prelude (
     -- * Elements
     document_,
@@ -7,6 +9,7 @@ module H2tml.Prelude (
     body_,
     ul_,
     div_,
+    img_,
     h1_,
     h2_,
     h3_,
@@ -21,6 +24,7 @@ module H2tml.Prelude (
 
     -- * Attributes
     href_,
+    src_,
 
     -- * Helpers
     children_,

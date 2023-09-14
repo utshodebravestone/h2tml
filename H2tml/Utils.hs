@@ -1,4 +1,4 @@
--- * Contains some utility functions
+-- * Contains Utility Functions
 
 module H2tml.Utils where
 
